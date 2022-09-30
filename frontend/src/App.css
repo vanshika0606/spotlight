@@ -1,0 +1,68 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  width:90%;
+  margin:20px auto 0 auto;
+}
+*{
+  font-family: 'PT Serif Caption';
+}
+
+
+.search-box input{
+ 
+  width:30vw;
+  border:none;
+  outline: none;
+  font-size: 20px;
+  padding: 1.5vw 3vw;
+}
+.search-box div{
+  width:5vw;
+  padding:10px;
+  font-size: 25px;
+}
+.search-box{
+  border: 2px solid ;
+  border-radius: 50px;
+  width:50vw;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.order{
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.orders{
+  font-size: 18px;
+  font-weight: bold;
+
+}
+#orderdate{
+  /* border: none; */
+  outline: none;
+  padding:5px 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.search-date{
+  display: flex;
+  align-items: center;
+  /* width:150px; */
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top:10px;
+  
+}
+.search-date >div{
+  border:1px solid black;
+  padding:4px 8px;
+  border-radius: 10px;
+  cursor:pointer;
+  /* margin-right: 20px; */
+}
