@@ -2,17 +2,32 @@ import React, { useEffect, useState } from "react";
 import Toggle from "./Toogle"
 
 const Accounts = () => {
+  var i=0;
   const [managerId, setManagerId] = useState("");
 
   const [sortBasis, setSortBasis]= useState("");
   const [order, setOrder] = useState("");
-
+ 
   const [managerIdS, setManagerIdS] = useState([]);
   const [customersData, setCustomersData] = useState([])
   const [tick, setTick] = useState(0);
   const [on, setOn]= useState(true)
 
-  const [name, setName] = useState("")
+  const [first, setFirst] = useState(true)
+  const [last, setLast] = useState(true)
+  const [birth, setBirth] = useState(true)
+  const [pic , setPic] = useState(true)
+  const [gender, setGender] = useState(true)
+  const [buisness,setBuisness] = useState(true)
+  const [churn, setChurn] = useState(true)
+  const [open, setOpen] = useState(true)
+  const [revenue, setRevenue] = useState(true)
+  const [cost, setCost] = useState(true)
+  const [bonus, setBonus] = useState(true)
+  const[meeting, setMeeting] = useState(true)
+
+  const [custon, setCuston] = useState(true)
+ 
 
   const fetchManagerid = async () => {
     await fetch("http://localhost:3000/all_managerId")
@@ -76,31 +91,25 @@ const Accounts = () => {
       <div className="toggles" >
         
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("customerId")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setCuston}/>
           </span>
         
         
         <h3 style={{margin:0,marginLeft:'0.5rem'}}>Customer Id</h3>
         </div>
         <div style={{display: "flex",alignItems:'center'}}>
-          <span  onClick={()=>{
-            setName("firstName")
-          }}>
+          <span  >
 
-        <Toggle setOn={setOn}/>
+        <Toggle setOn={setFirst}/>
           </span>
        
         <h3 style={{margin:0,marginLeft:'0.5rem'}}>First Name</h3>
         </div>
       
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("lastName")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span>
+          <Toggle setOn={setLast}/>
           </span>
         
         
@@ -109,10 +118,8 @@ const Accounts = () => {
 
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("picture")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setBirth}/>
           </span>
         
         
@@ -120,10 +127,8 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("birthDate")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setBirth}/>
           </span>
         
         
@@ -131,10 +136,8 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("gender")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setGender}/>
           </span>
         
         
@@ -142,10 +145,8 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("businessUnit")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setBuisness}/>
           </span>
         
         
@@ -153,10 +154,8 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("churnRisk")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setChurn}/>
           </span>
         
         
@@ -164,20 +163,16 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("openSales")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setOpen}/>
           </span>
         
         
         <h3 style={{margin:0,marginLeft:'0.5rem'}}>Open Sales</h3>
         </div>
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("revenueYTD")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setRevenue}/>
           </span>
         
         
@@ -185,29 +180,23 @@ const Accounts = () => {
         </div>
 
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("costYTD")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setCost}/>
           </span>
         
         
         <h3 style={{margin:0,marginLeft:'0.5rem'}}>Cost YTD</h3>
         </div>
         <div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("bonusEligible")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setBonus}/>
           </span>
         
         
         <h3 style={{margin:0,marginLeft:'0.5rem'}}>Bonus Eligible</h3>
         </div><div style={{display: "flex",alignItems:'center'}}>
-          <span onClick={()=>{
-            setName("meetingsYTD")
-          }}>
-          <Toggle setOn={setOn}/>
+          <span >
+          <Toggle setOn={setMeeting}/>
           </span>
         
         
@@ -220,9 +209,9 @@ const Accounts = () => {
 
       <table>
         <tr>
-          {( name!=="customerId" || on==true)&&<th>Customer ID 
+          {( custon==true)&&  <th>Customer ID 
             <div style={{marginTop:'10px'}}>
-              {(order!=="desc" || tick!==1) && <span style={{margin:'0 10px', cursor:'pointer'}} onClick={()=>{
+              {(order!=="desc" || tick!==1 ) && <span style={{margin:'0 10px', cursor:'pointer'}} onClick={()=>{
                 setSortBasis("customerId");
                 setOrder("desc")
                 setTick(1)
@@ -240,7 +229,7 @@ const Accounts = () => {
 }
               </div> </th>
 }
-         {  ( name!=="firstName" || on==true) && <th>First name
+         {  ( first===true) && <th>First name
 
           <div style={{marginTop:'10px'}}>
               { (order!=="desc" || tick!==3) && <span style={{margin:'0 10px', cursor:'pointer'}} onClick={()=>{
@@ -264,7 +253,7 @@ const Accounts = () => {
           </th>
 }
           
-          { ( name!=="lastName" || on==true) &&
+          { ( last==true ) &&
             <th>Last Name
 
           <div style={{marginTop:'10px'}}>
@@ -288,12 +277,12 @@ const Accounts = () => {
 
           </th>
 }
-{   ( name!=="picture" || on==true) &&
+{   ( pic==true) &&
           <th>Picture
 
           </th>
 }
-         { ( name!=="birthDate" || on==true) &&
+         { ( birth==true ) &&
           <th>Birth Date
 
           <div style={{marginTop:'10px'}}>
@@ -315,11 +304,11 @@ const Accounts = () => {
               </div>
           </th>
 }
-          {  ( name!=="gender" || on==true) &&
+          {  ( gender==true) &&
             <th>Gender</th>
           }
 
-          { ( name!=="businessUnit" || on==true) &&
+          { ( buisness==true) &&
           <th>Buisness Unit
 
           <div style={{marginTop:'10px'}}>
@@ -344,7 +333,7 @@ const Accounts = () => {
           </th>
 }
 
-{ ( name!=="churnRisk" || on==true) &&
+{ ( churn==true ) &&
           <th>Churn Risk
 
           <div style={{marginTop:'10px'}}>
@@ -367,7 +356,7 @@ const Accounts = () => {
           </th>
 }
 
-{ ( name!=="openSales" || on==true) &&
+{ ( open==true ) &&
           <th>Open Sales
           <div style={{marginTop:'10px'}}>
               {
@@ -391,7 +380,7 @@ const Accounts = () => {
           </th>
 }
 
-{ ( name!=="revenueYTD" || on==true) &&
+{ ( revenue==true ) &&
           <th>Revenue YTD
 
           <div style={{marginTop:'10px'}}>
@@ -415,7 +404,7 @@ const Accounts = () => {
           </th>
 }
 
-{ ( name!=="costYTD" || on==true) &&
+{ ( cost==true) &&
           <th>Cost YTD
 
           <div style={{marginTop:'10px'}}>
@@ -439,7 +428,7 @@ const Accounts = () => {
           </th>
 }
 
-{( name!=="bonusEligible" || on==true) &&
+{( bonus==true) &&
           <th>Bonus Eligible
 
           <div style={{marginTop:'10px'}}>
@@ -463,7 +452,7 @@ const Accounts = () => {
           </th>
 }
 
-{( name!=="meetingsYTD" || on==true) &&
+{( meeting==true ) &&
           <th>Meetings YTD
 
           <div style={{marginTop:'10px'}}>
@@ -494,54 +483,54 @@ const Accounts = () => {
         
           return (
             <tr>
-            {( name!=="customerId" || on==true)&&
+            {( custon==true)&&
             <td>{customer.customerId}</td>
         }
-            { ( name!=="firstName" || on==true) &&
+            { ( first==true ) &&
               <td>{customer.firstName}</td>
             }
             
-            {( name!=="lastName" || on==true) &&
+            {( last==true ) &&
               <td>{customer.lastName}</td>
             }
             
-            { ( name!=="picture" || on==true) &&
+            { ( pic==true ) &&
               <td>{customer.picture}</td>
             }
             
-            { ( name!=="birthDate" || on==true) &&
+            { ( birth==true ) &&
               <td>{customer.birthDate}</td>
           }
             
-            {  ( name!=="gender" || on==true) &&
+            {  ( gender==true ) &&
               <td>{customer.gender}</td>
             } 
 
-            {   ( name!=="businessUnit" || on==true) &&
+            {   ( buisness==true ) &&
             <td>{customer.businessUnit}</td>
         }
 
-        {  ( name!=="churnRisk" || on==true) &&
+        {  ( churn==true ) &&
             <td>{customer.churnRisk}</td>
         }
 
-        {  ( name!=="openSales" || on==true) &&
+        {  ( open==true ) &&
             <td>{customer.openSales}</td>
         }
 
-        {   ( name!=="revenueYTD" || on==true) &&
+        {   ( revenue==true ) &&
             <td>{customer.revenueYTD}</td>
         }
 
-{ ( name!=="costYTD" || on==true) &&
+{ ( cost==true) &&
             <td>{customer.costYTD}</td>
       }
 
-      { ( name!=="bonusEligible" || on==true) &&
+      { ( bonus==true) &&
             <td>{customer.bonusEligible}</td>
       }
 
-      { ( name!=="meetingsYTD" || on==true) &&
+      { ( meeting==true) &&
             <td>{customer.meetingsYTD}</td>
       }
             </tr>
