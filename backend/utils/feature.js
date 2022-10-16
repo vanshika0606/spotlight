@@ -7,7 +7,7 @@ class Features{
 
     search(){
         
-        const keyword = this.queryStr.firstName?{
+        const firstName = this.queryStr.firstName?{
 
             firstName:{
                 $regex:this.queryStr.firstName,
@@ -16,7 +16,7 @@ class Features{
         }:{};
 
        
-       this.query = this.query.find({...keyword})
+       this.query = this.query.find({...firstName})
        return this;
 
     }
