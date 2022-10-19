@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Toggle from "./Toogle"
+import Pagination from "./Pagination";
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
 
-const Accounts = () => {
-  var i=0;
+const Accounts = ( ) => {
+  
+  var arr=[]
+  
+  
   const [managerId, setManagerId] = useState("");
 
   const [sortBasis, setSortBasis]= useState("");
@@ -11,7 +17,7 @@ const Accounts = () => {
   const [managerIdS, setManagerIdS] = useState([]);
   const [customersData, setCustomersData] = useState([])
   const [tick, setTick] = useState(0);
-  const [on, setOn]= useState(true)
+  
 
   const [first, setFirst] = useState(true)
   const [last, setLast] = useState(true)
@@ -27,7 +33,16 @@ const Accounts = () => {
   const[meeting, setMeeting] = useState(true)
 
   const [custon, setCuston] = useState(true)
+
+  const [currentPage, setCurrentPage] = useState(1)
+ const [rowsPerPage] = useState(4)
+
+ const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
+
  
+
 
   const fetchManagerid = async () => {
     await fetch("http://localhost:3000/all_managerId")
@@ -63,11 +78,145 @@ const Accounts = () => {
   }
 
 
+  const indexOfLastrow = currentPage*rowsPerPage;
+
+  const indexOfFirstrow= indexOfLastrow-rowsPerPage;
+
+  const currentRows = customersData.slice(indexOfFirstrow,indexOfLastrow)
+var a=[]
+let length_array;
+  const myfunction =()=>{
+    currentRows.map((item,j)=>{
+      for(let i=0; i<=12; i++){
+        if(i==0 &&custon==true){
+          a.push(item.customerId)
+          
+        }
+        if(i==1 &&first==true){
+          a.push(item.firstName)
+          // return item.firstName
+        }
+        if(i==2 &&last==true){
+          a.push(item.lastName)
+        }
+        if(i==3 &&pic==true){
+          a.push(item.picture)
+        }
+        if(i==4 &&birth==true){
+          a.push(item.birthDate)
+        }
+        if(i==5 &&gender==true){
+          a.push(item.gender)
+        }
+        if(i==6 &&buisness==true){
+          a.push(item.businessUnit)
+        }
+        if(i==7 &&churn==true){
+          a.push(item.churnRisk)
+        }
+        if(i==8 &&open==true){
+          a.push(item.openSales)
+        }
+        if(i==9 &&revenue==true){
+          a.push(item.revenueYTD)
+        }
+        if(i==10 &&cost==true){
+          a.push(item.costYTD)
+        }
+        if(i==11 &&bonus==true){
+          a.push(item.bonusEligible)
+        }
+        if(i==12 &&meeting==true){
+          a.push(item.meetingsYTD)
+        }
+      }
+      if(j==0){
+        length_array=a.length
+        console.log(length_array)
+      }
+      
+      console.log(a)
+    })
+ 
+  }
+
+
+
+  const downloadPdf = () => {
+
+
+   myfunction()
+    for(let i=0; i<=12; i++){
+      if(i==0 &&custon==true){
+        arr.push('Customer Id')
+        
+      }
+      if(i==1 &&first==true){
+        arr.push('First Name')
+      }
+      if(i==2 &&last==true){
+        arr.push('Last Name')
+      }
+      if(i==3 &&pic==true){
+        arr.push('Picture')
+      }
+      if(i==4 &&birth==true){
+        arr.push('Birth Date')
+      }
+      if(i==5 &&gender==true){
+        arr.push('Gender')
+      }
+      if(i==6 &&buisness==true){
+        arr.push('Buisness Unit')
+      }
+      if(i==7 &&churn==true){
+        arr.push('Churn Risk')
+      }
+      if(i==8 &&open==true){
+        arr.push('Open Sales')
+      }
+      if(i==9 &&revenue==true){
+        arr.push('Revenue YTD')
+      }
+      if(i==10 &&cost==true){
+        arr.push('Cost YTD')
+      }
+      if(i==11 &&bonus==true){
+        arr.push('Bonus Eligible')
+      }
+      if(i==12 &&meeting==true){
+        arr.push('Meetings YTD')
+      }
+
+    }
+    const doc = new jsPDF({
+      orientation: "landscape",
+      
+    })
+    
+    doc.setFontSize(20);
+    doc.setFont('times', 'normal',400)
+    doc.text(`Customer Data For Manager Id (${managerId})`, 90, 20)
+    doc.autoTable({
+      theme: "grid",
+      head:[arr],
+      body: [a.slice(0,length_array), a.slice(length_array, 2*length_array +1), a.slice(2*length_array , 3*length_array+2),a.slice(3*length_array, 4*length_array+3)]
+        
+       
+      ,
+      margin: { top: 30 }
+    })
+    doc.save('table.pdf')
+    arr=[]
+  }
+
 
 
   useEffect(() => {
     fetchManagerid();
     fetchCustomers();
+
+   
 
   }, [managerId,order,sortBasis]);
   return (
@@ -85,6 +234,8 @@ const Accounts = () => {
           return <option key={i}>{m.managerId}</option>;
         })}
       </select>
+
+      <div  className="download-pdf" onClick={downloadPdf}>Download Pdf</div>
 
       <br/>
       <br/>
@@ -119,7 +270,7 @@ const Accounts = () => {
 
         <div style={{display: "flex",alignItems:'center'}}>
           <span >
-          <Toggle setOn={setBirth}/>
+          <Toggle setOn={setPic}/>
           </span>
         
         
@@ -478,8 +629,8 @@ const Accounts = () => {
 
         </tr>
 
-        {customersData &&
-        customersData.map((customer,i)=>{
+        {currentRows &&
+        currentRows.map((customer,i)=>{
         
           return (
             <tr>
@@ -538,8 +689,12 @@ const Accounts = () => {
         })
 }
       </table>
+     <Pagination rowsPerPage={rowsPerPage} totalRows={customersData.length} paginate={paginate} currentPage={currentPage} managerId={managerId}/>
     </div>
   );
 };
+
+
+
 
 export default Accounts;
