@@ -74,8 +74,14 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   cursor:pointer;
+  color:white;
+  border:2px solid black;
+  padding:0.5rem 1rem;
+  border-radius: 10px;
+  background-color: rgb(245, 39, 39);
 }
 .download-pdf:hover{
-color:red;
+
+background-color: rgb(192, 87, 87);
 }
 

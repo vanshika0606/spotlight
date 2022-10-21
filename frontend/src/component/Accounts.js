@@ -7,17 +7,27 @@ import 'jspdf-autotable'
 const Accounts = ( ) => {
   
   var arr=[]
-  
-  
+  var a=[]
+  let length_array;
+
   const [managerId, setManagerId] = useState("");
 
+  // which field are you sorting:-
   const [sortBasis, setSortBasis]= useState("");
+
+  // the order (asc, desc):-
   const [order, setOrder] = useState("");
  
+  // All manager ids:-
   const [managerIdS, setManagerIdS] = useState([]);
+
+  // All data of customers:-
   const [customersData, setCustomersData] = useState([])
+
+  //for arrows(order):-
   const [tick, setTick] = useState(0);
   
+// For toggles:-
 
   const [first, setFirst] = useState(true)
   const [last, setLast] = useState(true)
@@ -31,19 +41,15 @@ const Accounts = ( ) => {
   const [cost, setCost] = useState(true)
   const [bonus, setBonus] = useState(true)
   const[meeting, setMeeting] = useState(true)
-
   const [custon, setCuston] = useState(true)
 
-  const [currentPage, setCurrentPage] = useState(1)
- const [rowsPerPage] = useState(4)
 
+// Pagination
+ const [currentPage, setCurrentPage] = useState(1)
+ const [rowsPerPage] = useState(4)
  const paginate = pageNumber => setCurrentPage(pageNumber);
 
-
-
- 
-
-
+ //manager id fetch function:-
   const fetchManagerid = async () => {
     await fetch("http://localhost:3000/all_managerId")
       .then((res) => {
@@ -55,6 +61,7 @@ const Accounts = ( ) => {
   };
 
 
+  // Customer data fetch function
   const fetchCustomers = async ()=>{
 
     const res = await fetch("http://localhost:3000/",{
@@ -68,12 +75,9 @@ const Accounts = ( ) => {
              sortBasis,
              order
             
-          })
-         
+          })  
       })
-
-      const result =await res.json();
-      
+      const result =await res.json(); 
       setCustomersData(result.customer)
   }
 
@@ -83,8 +87,8 @@ const Accounts = ( ) => {
   const indexOfFirstrow= indexOfLastrow-rowsPerPage;
 
   const currentRows = customersData.slice(indexOfFirstrow,indexOfLastrow)
-var a=[]
-let length_array;
+
+
   const myfunction =()=>{
     currentRows.map((item,j)=>{
       for(let i=0; i<=12; i++){
@@ -94,7 +98,6 @@ let length_array;
         }
         if(i==1 &&first==true){
           a.push(item.firstName)
-          // return item.firstName
         }
         if(i==2 &&last==true){
           a.push(item.lastName)
@@ -132,10 +135,10 @@ let length_array;
       }
       if(j==0){
         length_array=a.length
-        console.log(length_array)
+       
       }
       
-      console.log(a)
+     
     })
  
   }
@@ -693,8 +696,5 @@ let length_array;
     </div>
   );
 };
-
-
-
 
 export default Accounts;

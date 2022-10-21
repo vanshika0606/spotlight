@@ -15,7 +15,7 @@ const Pagination = ({ rowsPerPage, totalRows, paginate , currentPage, managerId}
             
           <li key={number} className='page-item'>
             
-            <a onClick={() => paginate(number)} href='!#' className={ currentPage===number?'page-link backblue':'page-link' }>
+            <a onClick={() => paginate(number)}  className={ currentPage===number?'page-link backblue':'page-link' }>
               {number}
             </a>
           </li>
